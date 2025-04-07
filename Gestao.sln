@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao", "Gestao\Gestao.csproj", "{7BF31F2B-24E2-4650-8DA6-16A0E696440F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gestao.Client", "Gestao.Client\Gestao.Client.csproj", "{48881C63-D404-4EC5-8694-0DC73CB52361}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7BF31F2B-24E2-4650-8DA6-16A0E696440F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BF31F2B-24E2-4650-8DA6-16A0E696440F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BF31F2B-24E2-4650-8DA6-16A0E696440F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BF31F2B-24E2-4650-8DA6-16A0E696440F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48881C63-D404-4EC5-8694-0DC73CB52361}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48881C63-D404-4EC5-8694-0DC73CB52361}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48881C63-D404-4EC5-8694-0DC73CB52361}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48881C63-D404-4EC5-8694-0DC73CB52361}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

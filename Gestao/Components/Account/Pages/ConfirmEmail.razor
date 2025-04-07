@@ -1,0 +1,72 @@
+﻿@page "/Account/ConfirmEmail"
+@layout Gestao.Components.Layout.Default.DefaultLayout
+
+@using System.Text
+@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.WebUtilities
+@using Gestao.Data
+
+@inject UserManager<ApplicationUser> UserManager
+@inject IdentityRedirectManager RedirectManager
+
+<PageTitle>E-mail confirmado</PageTitle>
+
+
+
+<div class="p-lg-5 p-4">
+    <h5 class="text-primary">E-mail confirmadoo</h5>
+    <div class="mt-2 text-center">
+        <lord-icon src="https://cdn.lordicon.com/rhvddzym.json" trigger="loop" colors="primary:#0ab39c" class="avatar-xl">
+        </lord-icon>
+    </div>
+
+    <div class="p-2">
+        <StatusMessage Message="@statusMessage" />
+    </div>
+
+    <div class="mt-5 text-center">
+        <p class="mb-0">
+            Seu e-mail foi confirmado com sucesso. Clique no link abaixo para acessar sua conta:
+        </p>
+        <a href="/Account/Login" class="fw-semibold text-primary text-decoration-underline">
+            Acessar Login
+        </a>
+    </div>
+
+</div>
+
+
+@code {
+    private string? statusMessage;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromQuery]
+    private string? UserId { get; set; }
+
+    [SupplyParameterFromQuery]
+    private string? Code { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (UserId is null || Code is null)
+        {
+            RedirectManager.RedirectTo("");
+        }
+
+        var user = await UserManager.FindByIdAsync(UserId);
+        if (user is null)
+        {
+            HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+            statusMessage = $"Erro ao carregar o usuário com ID {UserId}";
+        }
+        else
+        {
+            var code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(Code));
+            var result = await UserManager.ConfirmEmailAsync(user, code);
+            statusMessage = result.Succeeded ? "Agradecemos por confirmar seu e-mail." : "Opps! Ocorreu um erro ao confirmar seu e-mail.";
+
+        }
+    }
+}
