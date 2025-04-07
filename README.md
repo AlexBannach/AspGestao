@@ -66,3 +66,19 @@ dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
 ```
 dotnet new mvc -o Nome_do_projeto
 ```
+
+# Criação de Branch
+
+```
+git checkout -b [SEU NOME]
+```
+
+> Após criar a branch você deve subir os novos arquivos
+
+```
+git add .
+git commit -m "Mensangem da alteração"
+git push -u origin [SEU NOME]
+```
+
+> Após finalizar este processo, você estará trabalhando diretamente na sua branch, sem alterar a branch main, que seria a principal, e sem prejudicar os outros que estão trabalhando no mesmo projeto.

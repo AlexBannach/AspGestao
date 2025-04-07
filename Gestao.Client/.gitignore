@@ -26,9 +26,6 @@ logs/
 secrets.json
 appsettings.json
 
-# Dependency directories
-node_modules/
-wwwroot/lib/
 
 # Publish output
 publish/
