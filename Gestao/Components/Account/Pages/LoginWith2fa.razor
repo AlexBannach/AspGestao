@@ -61,7 +61,7 @@
     {
         // Ensure the user has gone through the username & password screen first
         user = await SignInManager.GetTwoFactorAuthenticationUserAsync() ??
-            throw new InvalidOperationException("Unable to load two-factor authentication user.");
+            throw new InvalidOperationException("Não é possível carregar o usuário de autenticação de dois fatores.");
     }
 
     private async Task OnValidSubmitAsync()
@@ -72,25 +72,25 @@
 
         if (result.Succeeded)
         {
-            Logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", userId);
+            Logger.LogInformation("Usuário com ID '{UserId}' efetuou login com 2fa.", userId);
             RedirectManager.RedirectTo(ReturnUrl);
         }
         else if (result.IsLockedOut)
         {
-            Logger.LogWarning("User with ID '{UserId}' account locked out.", userId);
+            Logger.LogWarning("Conta de usuário com ID '{UserId}' bloqueada.", userId);
             RedirectManager.RedirectTo("Account/Lockout");
         }
         else
         {
-            Logger.LogWarning("Invalid authenticator code entered for user with ID '{UserId}'.", userId);
-            message = "Error: Invalid authenticator code.";
+            Logger.LogWarning("Código de autenticador inválido inserido para usuário com ID '{UserId}'.", userId);
+            message = "Error: Código do autenticador inválido.";
         }
     }
 
     private sealed class InputModel
     {
         [Required]
-        [StringLength(7, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+        [StringLength(7, ErrorMessage = "O {0} deve ter no mínimo {2} e no máximo {1} caracteres.", MinimumLength = 6)]
         [DataType(DataType.Text)]
         [Display(Name = "Authenticator code")]
         public string? TwoFactorCode { get; set; }
