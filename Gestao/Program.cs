@@ -25,18 +25,55 @@ builder.Services.AddAuthentication(options =>
         options.DefaultScheme = IdentityConstants.ApplicationScheme;
         options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
     })
+    .AddGoogle(options =>
+    {
+        options.ClientId = builder.Configuration.GetValue<string>("OAuth:Google:ClientId")!;
+        options.ClientSecret = builder.Configuration.GetValue<string>("OAuth:Google:ClientSecret")!;
+    })
+    .AddFacebook(options =>
+    {
+        options.ClientId = builder.Configuration.GetValue<string>("OAuth:Facebook:ClientId")!;
+        options.ClientSecret = builder.Configuration.GetValue<string>("OAuth:Facebook:ClientSecret")!;
+    })
+    .AddMicrosoftAccount(options =>
+    {
+        options.ClientId = builder.Configuration.GetValue<string>("OAuth:Microsoft:ClientId")!;
+        options.ClientSecret = builder.Configuration.GetValue<string>("OAuth:Microsoft:ClientSecret")!;
+    })
+    .AddTwitter(options =>
+    {
+        options.ConsumerKey = builder.Configuration.GetValue<string>("OAuth:Twitter:ConsumerKey")!;
+        options.ConsumerSecret = builder.Configuration.GetValue<string>("OAuth:Twitter:ConsumerSecret")!;
+    })
     .AddIdentityCookies();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), 
+        b => b.MigrationsAssembly("Gestao")));
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentityCore<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+
+    options.Password.RequireDigit = true; // É necessário ter números
+    options.Password.RequireLowercase = false; // Não é necessário ter letras minúsculas
+    options.Password.RequireUppercase = false; // Não é necessário ter letras maiúsculas
+    options.Password.RequireNonAlphanumeric = false; // Não é necessário ter caracteres especiais
+    options.Password.RequiredLength = 6; // Tamanho mínimo da senha
+                                         //options.SignIn.RequireConfirmedAccount = true; // O usuário precisa confirmar a conta
+    options.User.RequireUniqueEmail = true; // O email do usuário precisa ser único
+})
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
+
+
 
 builder.Services.AddSingleton<SmtpClient>(options =>
 {
@@ -45,7 +82,7 @@ builder.Services.AddSingleton<SmtpClient>(options =>
     smtp.Port = builder.Configuration.GetValue<int>("EmailSender:Port");
     smtp.EnableSsl = builder.Configuration.GetValue<bool>("EmailSender:EnableSsl");
     smtp.Credentials = new System.Net.NetworkCredential(
-        builder.Configuration.GetValue<string>("EmailSender:User"), 
+        builder.Configuration.GetValue<string>("EmailSender:User"),
         builder.Configuration.GetValue<string>("EmailSender:Password"));
     return smtp;
 });
