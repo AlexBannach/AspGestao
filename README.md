@@ -61,10 +61,13 @@ dotnet add package FluentValidation.AspNetCore
 dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
 ```
 
-> Para criar o projeto
+> Adicionar referencia no projeto
 
 ```
-dotnet new mvc -o Nome_do_projeto
+dotnet add Gestao.Client/Gestao.Client.csproj reference Gestao.Domain/Gestao.Domain.csproj
+
+dotnet add Gestao/Gestao.csproj reference Gestao.Client/Gestao.Client.csproj
+dotnet add Gestao/Gestao.csproj reference Gestao.Domain/Gestao.Domain.csproj
 ```
 
 # Criação de Branch
