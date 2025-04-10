@@ -1,4 +1,5 @@
 using Gestao.Domain;
+using Gestao.Domain.Model.EntityConfigurations;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,12 @@ namespace Gestao.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new AccountConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new CompanyConfiguration());
+            builder.ApplyConfiguration(new DocumentAttachmentConfiguration());
+            builder.ApplyConfiguration(new FinancialTransactionConfiguration());
 
             builder.Entity<FinancialTransaction>().Property(a => a.Repeat).HasConversion<string>();
 
