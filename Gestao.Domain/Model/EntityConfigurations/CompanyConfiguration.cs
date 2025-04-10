@@ -21,8 +21,11 @@ namespace Gestao.Domain.Model.EntityConfigurations
 
             builder.Property(c => c.CNPJ)
                 .IsRequired()
-                .IsUnicode(true)
+                .IsUnicode(false)
                 .HasMaxLength(14);
+            // Adicionando restrição de unicidade para CNPJ
+            builder.HasIndex(c => c.CNPJ)
+                .IsUnique();
 
             builder.Property(c => c.PostalCode)
                 .IsRequired()
@@ -30,7 +33,7 @@ namespace Gestao.Domain.Model.EntityConfigurations
 
             builder.Property(c => c.State)
                 .IsRequired()
-                .HasMaxLength(2);
+                .HasMaxLength(50);
 
             builder.Property(c => c.City)
                 .IsRequired()

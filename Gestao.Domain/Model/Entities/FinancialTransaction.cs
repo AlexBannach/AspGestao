@@ -27,7 +27,7 @@ namespace Gestao.Domain
         public int? CategoryId { get; set; }
         public Category? Category { get; set; }
         public ICollection<DocumentAttachment>? DocumentAttachments { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
         public required ApplicationUser User { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
     }
