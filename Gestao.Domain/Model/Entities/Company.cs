@@ -20,8 +20,8 @@ namespace Gestao.Domain
         public required string Number { get; set; }
         public string? Complement { get; set; } // Opcional
         public string? Phone { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
-        public Guid UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
         public required ApplicationUser User { get; set; }
+        public DateTimeOffset CreatedAt { get; set; }
     }
 }

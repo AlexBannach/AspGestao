@@ -70,8 +70,8 @@ namespace Gestao.Domain.Model.EntityConfigurations
                 .HasForeignKey(ft => ft.CategoryId)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            // Relacionamento com DocumentAttachments
-            builder.HasMany(ft => ft.DocumentAttachments)
+            // Relacionamento com Documents
+            builder.HasMany(ft => ft.Documents)
                 .WithOne(da => da.FinancialTransaction)
                 .HasForeignKey(da => da.FinancialTransactionId)
                 .OnDelete(DeleteBehavior.Cascade);
@@ -81,6 +81,16 @@ namespace Gestao.Domain.Model.EntityConfigurations
                 .WithMany()
                 .HasForeignKey(ft => ft.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+                // Enum mapeado para string
+            builder.Property(ft => ft.TypeFinancialTransaction)
+                .IsRequired()
+                .HasConversion<string>();
+
+            // Enum mapeado para string
+            builder.Property(ft => ft.Repeat)
+                .IsRequired()
+                .HasConversion<string>();
         }
     }
 }

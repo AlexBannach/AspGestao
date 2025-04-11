@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Gestao.Domain.Model.EntityConfigurations
 {
-    public class DocumentAttachmentConfiguration : IEntityTypeConfiguration<DocumentAttachment>
+    public class DocumentConfiguration : IEntityTypeConfiguration<Document>
     {
-        public void Configure(EntityTypeBuilder<DocumentAttachment> builder)
+        public void Configure(EntityTypeBuilder<Document> builder)
         {
             // Chave primária
             builder.HasKey(d => d.Id);

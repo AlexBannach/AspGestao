@@ -23,6 +23,12 @@ namespace Gestao.Domain.Model.EntityConfigurations
 
             builder.Property(c => c.UpdatedAt)
                 .IsRequired();
+
+            // Relacionamento com a entidade Company
+            builder.HasOne<Company>()
+                .WithMany()
+                .HasForeignKey(c => c.CompanyId)
+                .IsRequired();
         }
     }
 }
