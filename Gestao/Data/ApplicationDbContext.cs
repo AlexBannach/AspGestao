@@ -11,7 +11,7 @@ namespace Gestao.Data
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Category> Categorys { get; set; }
         public DbSet<FinancialTransaction> FinancialTransactions { get; set; }
-        public DbSet<DocumentAttachment> DocumentAttachments { get; set; }
+        public DbSet<Document> Documents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -20,10 +20,11 @@ namespace Gestao.Data
             builder.ApplyConfiguration(new AccountConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new CompanyConfiguration());
-            builder.ApplyConfiguration(new DocumentAttachmentConfiguration());
+            builder.ApplyConfiguration(new DocumentConfiguration());
             builder.ApplyConfiguration(new FinancialTransactionConfiguration());
 
             builder.Entity<FinancialTransaction>().Property(a => a.Repeat).HasConversion<string>();
+            builder.Entity<FinancialTransaction>().Property(a => a.TypeFinancialTransaction).HasConversion<string>();
 
         }
     }

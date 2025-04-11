@@ -1,19 +1,12 @@
 using Gestao.Domain;
 using Gestao.Client.Libraries.Utilities;
+using Gestao.Data.Repositories.Interfaces;
+
 using Microsoft.EntityFrameworkCore;
 
 
 namespace Gestao.Data.Repositories
 {
-    public interface ICategoryRepository
-    {
-        Task Add(Category category);
-        Task Delete(int id);
-        Task<PaginatedList<Category>> GetAll(int companyId, int pageIndex, int pageSize);
-        Task<List<Category>> GetAll(int companyId);
-        Task<Category?> GetById(int id);
-        Task Update(Category category);
-    }
 
     public class CategoryRepository : ICategoryRepository
     {
@@ -25,7 +18,7 @@ namespace Gestao.Data.Repositories
 
         public async Task<PaginatedList<Category>> GetAll(int companyId, int pageIndex, int pageSize)
         {
-            var query = _context.Categorys.Where(c => c.CompanyId == companyId).AsQueryable();
+            var query = _context.Categorys.Where(c => c.CompanyId == companyId).OrderBy(c => c.Name).AsQueryable();
             var totalCount = await query.CountAsync();
             var items = await query.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PaginatedList<Category>(items, pageIndex, (int)Math.Ceiling((double)totalCount / pageSize));

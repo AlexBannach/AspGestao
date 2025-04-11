@@ -1,4 +1,4 @@
-namespace Gestao.Domain
+namespace Gestao.Domain.Model.Enums
 {
     public enum Recurrence
     {
