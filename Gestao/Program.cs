@@ -1,4 +1,3 @@
-using Gestao.Client.Pages;
 using Gestao.Components;
 using Gestao.Components.Account;
 using Gestao.Data;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
+using Gestao.Data.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -123,5 +123,10 @@ app.MapRazorComponents<App>()
 
 // Add additional endpoints required by the Identity /Account Razor components.
 app.MapAdditionalIdentityEndpoints();
+
+app.MapAccountsEndpoints();
+app.MapCategoryEndpoints();
+app.MapCompanyEndpoints();
+app.MapFinancialTransactionsEndpoints();
 
 app.Run();

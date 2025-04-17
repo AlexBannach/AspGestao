@@ -20,8 +20,7 @@ namespace Gestao.Domain.Model.EntityConfigurations
                 .HasColumnType("decimal(18,2)");
 
             builder.Property(a => a.BalanceDate)
-                .IsRequired()
-                .HasColumnType("decimal(18,2)");
+                .IsRequired();
 
             // Relacionamento com a entidade Company
             builder.HasOne(a => a.Company)
