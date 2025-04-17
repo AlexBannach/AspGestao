@@ -1,3 +1,5 @@
+@inject NavigationManager NavigationManager
+
 <header id="page-topbar">
     <div class="layout-width">
         <div class="navbar-header">
@@ -598,5 +600,10 @@
 
 @code {
     private string? currentUrl;
+
+    protected override void OnInitialized()
+    {
+        currentUrl = NavigationManager.Uri;
+    }
 
 }
