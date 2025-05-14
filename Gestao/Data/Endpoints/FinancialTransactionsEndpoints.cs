@@ -1,4 +1,4 @@
-using Gestao.Data.Repositories.Interfaces;
+using Gestao.Domain.Repositories.Interfaces;
 using Gestao.Domain.Model.Enums;
 using Microsoft.AspNetCore.Mvc;
 

@@ -1,7 +1,6 @@
-using Gestao.Domain;
 using Gestao.Client.Libraries.Utilities;
 
-namespace Gestao.Data.Repositories.Interfaces
+namespace Gestao.Domain.Repositories.Interfaces
 {
     public interface ICompanyRepository
     {

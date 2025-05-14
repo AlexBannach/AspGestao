@@ -1,6 +1,6 @@
 using Gestao.Domain;
 using Gestao.Client.Libraries.Utilities;
-using Gestao.Data.Repositories.Interfaces;
+using Gestao.Domain.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Gestao.Domain.Model.Enums;
 

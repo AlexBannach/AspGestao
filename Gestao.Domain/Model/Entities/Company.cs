@@ -23,5 +23,6 @@ namespace Gestao.Domain
         public string UserId { get; set; } = string.Empty;
         public required ApplicationUser User { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
+        public DateTimeOffset? DeletedAt { get; set; }
     }
 }

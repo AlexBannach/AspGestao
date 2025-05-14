@@ -2,13 +2,15 @@ using Gestao.Components;
 using Gestao.Components.Account;
 using Gestao.Data;
 using Gestao.Data.Repositories;
-using Gestao.Data.Repositories.Interfaces;
 using Gestao.Libraries.Mail;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Mail;
 using Gestao.Data.Endpoints;
+using Gestao.Domain.Repositories.Interfaces;
+using Gestao.Client.Libraries.Notifications;
+using Blazored.LocalStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,10 +52,10 @@ builder.Services.AddAuthentication(options =>
     .AddIdentityCookies();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), 
         b => b.MigrationsAssembly("Gestao")));
 
@@ -74,7 +76,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options =>
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddSignInManager()
     .AddDefaultTokenProviders();
-
+    
+builder.Services.AddBlazoredLocalStorage();
 
 
 builder.Services.AddSingleton<SmtpClient>(options =>
@@ -89,6 +92,7 @@ builder.Services.AddSingleton<SmtpClient>(options =>
     return smtp;
 });
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, EmailSender>();
+builder.Services.AddScoped<CompanyOnSelectedNotification>();
 
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();

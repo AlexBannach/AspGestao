@@ -1,6 +1,5 @@
-using Gestao.Domain;
 
-namespace Gestao.Data.Repositories.Interfaces
+namespace Gestao.Domain.Repositories.Interfaces
 {
     public interface IDocumentRepository
     {

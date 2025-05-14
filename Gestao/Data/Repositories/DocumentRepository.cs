@@ -1,5 +1,5 @@
 using Gestao.Domain;
-using Gestao.Data.Repositories.Interfaces;
+using Gestao.Domain.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace Gestao.Data.Repositories
